@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  pool: 5
+  encoding: utf-8
+  charset: utf-8
+  timeout: 5000
+
+development:
+  <<: *default
+  database: quanto-preciso-development
+
+test:
+  <<: *default
+  database: quanto-preciso-test
+
+production:
+  <<: *default
+  database: quanto-preciso
+  username: quanto-preciso
+  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
