@@ -11,18 +11,18 @@ class Scraper
   def call
     notices_page = agent.get(NOTICES_URL)
     notices_page.search('.cp.b.uC').each do |notice_li|
-      params = {}
-      params[:title], params[:posted_at] = split_title_and_posted_at(notice_li.text)
+      notice_params = {}
+      notice_params[:title], notice_params[:posted_at] = split_title_and_posted_at(notice_li.text)
 
-      notice = Notice.find_by(title: params[:title], posted_at: params[:posted_at])
+      notice = Notice.find_by(title: notice_params[:title], posted_at: notice_params[:posted_at])
 
       unless notice
         notice_url = notice_li.attributes.values.select{|val| val.name == "onclick" }.first.value.split("=").last.gsub("'", "")
         notice_page = agent.get(notice_url)
-        params[:description] = notice_page.search(".conteudo.text p").text.strip rescue nil
-        params[:image] = notice_page.search(".conteudo.text img").first.attributes["src"].value rescue nil
+        notice_params[:description] = notice_page.search(".conteudo.text p").text.strip rescue nil
+        notice_params[:image] = notice_page.search(".conteudo.text img").first.attributes["src"].value rescue nil
         
-        create_notice(params)
+        create_notice(notice_params)
       end
     end
   end
