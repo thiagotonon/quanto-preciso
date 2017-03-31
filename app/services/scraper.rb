@@ -2,7 +2,7 @@ class Scraper
 
   NOTICES_URL = "http://www.ibta.edu.br/Noticias"
 
-  attr_accessor :agent, :params
+  attr_accessor :agent
 
   def initialize
     self.agent = build_agent
