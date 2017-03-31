@@ -1,24 +1,23 @@
 class Scraper
 
-  FULL_URL_ADDRESS = "http://www.ibta.edu.br/Noticias"
+  NOTICES_URL = "http://www.ibta.edu.br/Noticias"
 
-  attr_accessor :agent, :url, :params
+  attr_accessor :agent, :params
 
-  def initialize(attrs={})
+  def initialize
     self.agent = build_agent
-    self.url = FULL_URL_ADDRESS
   end
 
   def call
-    notices_page = agent.get(url)
-    notices_page.search('.cp.b.uC').each do |notice|
+    notices_page = agent.get(NOTICES_URL)
+    notices_page.search('.cp.b.uC').each do |notice_li|
       params = {}
-      params[:title], params[:posted_at] = split_title_and_posted_at(notice.text)
+      params[:title], params[:posted_at] = split_title_and_posted_at(notice_li.text)
 
-      any_notice = Notice.find_by(title: params[:title], posted_at: params[:posted_at])
+      notice = Notice.find_by(title: params[:title], posted_at: params[:posted_at])
 
-      unless any_notice
-        notice_url = notice.attributes.values.select{|val| val.name == "onclick" }.first.value.split("=").last.gsub("'", "")
+      unless notice
+        notice_url = notice_li.attributes.values.select{|val| val.name == "onclick" }.first.value.split("=").last.gsub("'", "")
         notice_page = agent.get(notice_url)
         params[:description] = notice_page.search(".conteudo.text p").text.strip rescue nil
         params[:image] = notice_page.search(".conteudo.text img").first.attributes["src"].value rescue nil
@@ -31,11 +30,11 @@ class Scraper
   private
 
     def create_notice(params)
-      Notice.create!(params)
+      Notice.create(params)
     end
 
     def split_title_and_posted_at(text)
-      posted_at, title = text.split("-")
+      posted_at, title = text.split("-", 2)
       return title.strip, Date.strptime(posted_at.strip, "%d/%m/%y")
     end
 

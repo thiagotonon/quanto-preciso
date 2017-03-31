@@ -6,6 +6,8 @@ git_source(:github) do |repo_name|
 end
 
 gem 'mechanize'
+gem 'active_model_serializers', '~> 0.10.0'
+
 gem 'rails', '~> 5.0.2'
 gem 'pg'
 gem 'puma', '~> 3.0'
@@ -18,7 +20,11 @@ group :development, :test do
 end
 
 group :test do
+  gem 'factory_girl_rails'
+  gem 'rails-controller-testing'
   gem 'shoulda-matchers', '~> 3.1'
+  gem 'simplecov-rcov'
+  gem 'simplecov', require: false
 end
 
 group :development do
