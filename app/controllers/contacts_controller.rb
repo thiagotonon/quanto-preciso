@@ -4,7 +4,7 @@ class ContactsController < ApplicationController
     @contact = Contact.new(permitted_contact_params)
 
     if @contact.save
-      render json: @contact
+      render json: @contact, serializer: Contact::ShowSerializer
     else
       render json: @contact.errors, status: 422
     end

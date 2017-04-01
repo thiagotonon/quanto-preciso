@@ -40,7 +40,7 @@ RSpec.describe ContactsController, type: :controller do
         post :create, params: { contact: @params }
         json = JSON.parse(response.body)
 
-        expect(json["email"]).to eq(["can't be blank"])
+        expect(json["email"]).to eq(["can't be blank", "is invalid"])
         expect(json["subject"]).to eq(["can't be blank"])
         expect(json["message"]).to eq(["can't be blank"])
       end
