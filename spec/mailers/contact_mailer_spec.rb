@@ -11,11 +11,11 @@ RSpec.describe ContactMailer, type: :mailer do
     end
 
     it "returns the mail from" do
-      expect(mail.from).to eq(["nao-responda@quantopreciso.com.br"])
+      expect(mail.from).to eq([ENV["MAIL_DEFAULT_FROM"]])
     end
 
     it "returns the mail to" do
-      expect(mail.to).to eq(["atendimento@ibta.edu.br"])
+      expect(mail.to).to eq([ENV["MAIL_DEFAULT_TO"]])
     end
 
     it "prints user email in the email body" do
