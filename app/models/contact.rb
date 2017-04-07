@@ -11,6 +11,6 @@ class Contact < ApplicationRecord
   private
 
     def send_mail
-      ContactMailer.message_mail(id).deliver
+      ContactMailer.message_mail(self).deliver
     end
 end

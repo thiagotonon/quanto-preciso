@@ -9,4 +9,12 @@ RSpec.describe Contact, type: :model do
   it { should allow_value("email@email.com").for(:email) }
   it { should_not allow_value("invalid").for(:email) }
 
+  describe "#send_mail" do
+    it "changes ActionMailer::Base deliveries count by one" do
+      expect{
+        create(:contact)
+      }.to change{ ActionMailer::Base.deliveries.count }.by(1)
+    end
+  end
+
 end
