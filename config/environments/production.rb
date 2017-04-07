@@ -82,7 +82,7 @@ Rails.application.configure do
     domain: ENV['MAIL_DOMAIN'],
     user_name: ENV['MAIL_USERNAME'],
     password: ENV['MAIL_PASSWORD'],
-    authentication: :login,
+    authentication: ENV['MAIL_AUTHENTICATION'],
     enable_starttls_auto: true
   }
 end
