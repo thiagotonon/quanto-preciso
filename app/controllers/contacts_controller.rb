@@ -13,7 +13,7 @@ class ContactsController < ApplicationController
   protected
 
     def permitted_contact_params
-      params.require(:contact).permit(:email, :subject, :message)
+      params.require(:contact).permit(:email, :subject, :message, :phone)
     end
 
 end

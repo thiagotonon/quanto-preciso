@@ -17,6 +17,7 @@ RSpec.describe ContactsController, type: :controller do
         json = JSON.parse(response.body)
 
         expect(json["subject"]).to eq(@params[:subject])
+        expect(json["phone"]).to eq(@params[:phone])
         expect(json["email"]).to eq(@params[:email])
         expect(json["message"]).to eq(@params[:message])
       end

@@ -1,3 +1,6 @@
 <p>Email: <%= @contact.email %></p>
+<% if @contact.phone.present? %>
+  <p>Telefone: <%= @contact.phone %></p>
+<% end %>
 <p>Assunto: <%= @contact.subject %></p>
 <p>Mensagem: <%= @contact.message %></p>
