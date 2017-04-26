@@ -9,7 +9,7 @@ RSpec.describe NoticesController, type: :controller do
     before { get :index }
 
     it "assigns all notices to @notices" do
-      expect(assigns(:notices)).to eq(notices)
+      expect(assigns(:notices).count).to eq(notices.count)
     end
 
     it "renders a notices json" do
