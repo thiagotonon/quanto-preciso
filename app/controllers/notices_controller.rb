@@ -1,7 +1,7 @@
 class NoticesController < ApplicationController
 
   def index
-    @notices = Notice.order(id: :desc).limit(10)
+    @notices = Notice.order(posted_at: :desc).limit(5)
     render json: @notices, each_serializer: Notice::IndexSerializer
   end
 
