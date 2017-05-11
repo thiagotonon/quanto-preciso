@@ -1,3 +1,3 @@
 class Notice::IndexSerializer < ActiveModel::Serializer
-  attributes :id, :title, :image, :posted_at
+  attributes :id, :title, :image, :description, :posted_at
 end
